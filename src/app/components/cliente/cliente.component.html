@@ -1,0 +1,32 @@
+<div class="container">
+  <div class="client-list">
+      <h2>Lista de Clientes</h2>
+      <ul>
+          @for (c of clients; track c) {
+          <div class="client">
+              <strong>
+                  <p>{{ c.cedula}}</p>
+              </strong>
+              <p>{{ c.direccion }}</p>
+              <p>{{ c.nombre }}</p>
+              <input type="button" value="Borrar" (click)="deleteClient(c.cedula)">
+              <input type="button" value="Modificar" (click)="getValues(c.cedula, c.direccion, c.nombre)">
+          </div>
+          }
+      </ul>
+  </div>
+
+  <div class="create-client">
+      <label for="cedula">Cedula: </label>
+      <input type="text" name="cedula" id="cedula" placeholder="Ingrese su cedula" [(ngModel)]="id">
+      <br>
+      <label for="direccion">Direccion: </label>
+      <input type="text" name="direccion" id="direccion" placeholder="Ingrese su direccion" [(ngModel)]="direction">
+      <br>
+      <label for="nombre">Nombre: </label>
+      <input type="text" name="nombre" id="nombre" placeholder="Ingrese su nombre" [(ngModel)]="name">
+      <br>
+      <input type="button" value="Crear" (click)="createClient()">
+      <input type="button" value="Confirmar" (click)="updateClient()">
+  </div>
+</div>
