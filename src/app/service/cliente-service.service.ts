@@ -1,31 +1,18 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Cliente } from '../model/Cliente';
+import { Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
 })
-
-
 export class ClienteService {
+  private baseUrl = 'http://localhost:8080/proyectobackend/bl-sv';
 
   constructor(private http: HttpClient) { }
 
-  getClients() {
-    return this.http.get<Cliente[]>('http://localhost:8080/demojakarta/rs/clientes');
+  getClients(): Observable<Cliente[]> {
+    console.log('Requesting clients from', `${this.baseUrl}/users`); // Log de solicitud
+    return this.http.get<Cliente[]>(`${this.baseUrl}/users`);
   }
-
-  createClient(data: any) {
-    return this.http.post('http://localhost:8080/demojakarta/rs/clientes', data);
-  }
-
-  deleteClient(id: any) {
-    return this.http.delete(`http://localhost:8080/demojakarta/rs/clientes?id=${id}`);
-  }
-
-  updateClient(data: any) {
-    return this.http.put('http://localhost:8080/demojakarta/rs/clientes', data);
-  } 
-  }
-
-
+}
