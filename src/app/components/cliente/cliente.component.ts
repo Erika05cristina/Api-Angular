@@ -6,6 +6,7 @@ import { Router } from '@angular/router';
 import { AuthService } from '../../service/auth-service.service';
 import { ReactiveFormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
+import { LoginService } from '../../service/login.service';
 
 @Component({
   selector: 'app-cliente',
@@ -22,7 +23,7 @@ export class Clientes implements OnInit {
 
   constructor(
     private api: ClienteService,
-    private authService: AuthService,
+    private loginService : LoginService,
     private fb: FormBuilder,
     private cd: ChangeDetectorRef,
     private router: Router
@@ -34,7 +35,7 @@ export class Clientes implements OnInit {
   }
 
   ngOnInit(): void {
-    this.isLoggedIn = !!this.authService.getToken();
+    this.isLoggedIn = !!this.loginService.getToken();
     if (this.isLoggedIn) {
       this.getClients();
     }
@@ -60,10 +61,10 @@ export class Clientes implements OnInit {
         password: password
       };
   
-      this.authService.login(request).subscribe(
+      this.loginService.login(request).subscribe(
         response => {
           console.log('Response from login:', response); // Imprimir respuesta
-          this.authService.saveToken(response.jwt);
+          this.loginService.saveToken(response.jwt);
           console.log('Token:', response.jwt); // Imprimir token
           this.isLoggedIn = true;
           this.getClients();
